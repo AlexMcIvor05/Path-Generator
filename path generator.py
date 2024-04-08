@@ -10,6 +10,13 @@ root=Tk()
 
 coord_list = []
 
+
+width= root.winfo_screenwidth()               
+height= root.winfo_screenheight()
+image1 = Image.new("RGB", (width, height), "white")
+draw = ImageDraw.Draw(image1)
+    
+    
 def motion(event):
     #(event)->
     global coord_list
@@ -232,37 +239,45 @@ def make_connection(rectangle1, rectangle2):
     if orientation1 == "up":
         if rectangle1[2] > rectangle2[0] or rectangle1[2] > rectangle2[2]:    
             canvas.create_line(rectangle1[0], rectangle1[3]+1, rectangle1[0], rectangle1[3]+30, fill = "white")
+            draw.line(re_orient([rectangle1[0], rectangle1[3]+1, rectangle1[0], rectangle1[3]+30]), fill = "white")
             return [rectangle1[0], rectangle1[3]+1, rectangle1[0], rectangle1[3]+30]
         
         else:
             canvas.create_line(rectangle1[2], rectangle1[3]+1, rectangle1[2], rectangle1[3] + 30, fill = "white")
+            draw.line(re_orient([rectangle1[2], rectangle1[3]+1, rectangle1[2], rectangle1[3] + 30]), fill = "white")
             return [rectangle1[2], rectangle1[3]+1, rectangle1[2], rectangle1[3] + 30]
         
     elif orientation1 == "down":
         if rectangle1[2] > rectangle2[0] or rectangle1[2] > rectangle2[2]:    
             canvas.create_line(rectangle1[2], rectangle1[3]-1, rectangle1[2], rectangle1[3] - 30, fill = "white")
+            draw.line(re_orient([rectangle1[2], rectangle1[3]-1, rectangle1[2], rectangle1[3] - 30]), fill = "white")
             return [rectangle1[2], rectangle1[3]-1, rectangle1[2], rectangle1[3] - 30]
         
         else:  
             canvas.create_line(rectangle1[0], rectangle1[3]-1, rectangle1[0], rectangle1[3]-30, fill = "white")
+            draw.line(re_orient([rectangle1[0], rectangle1[3]-1, rectangle1[0], rectangle1[3]-30]), fill = "white")
             return [rectangle1[0], rectangle1[3]-1, rectangle1[0], rectangle1[3]-30]
         
     elif orientation1 == "left":
         if rectangle1[3] > rectangle2[3] or rectangle1[3] > rectangle2[1]:    
             canvas.create_line(rectangle1[2]+1, rectangle1[3], rectangle1[2]+30, rectangle1[3], fill = "white")
+            draw.line(re_orient([rectangle1[2]+1, rectangle1[3], rectangle1[2]+30, rectangle1[3]]), fill= "white")
             return [rectangle1[2]+1, rectangle1[3], rectangle1[2]+30, rectangle1[3]]
         
         else: 
             canvas.create_line(rectangle1[2]+1, rectangle1[1], rectangle1[2]+30, rectangle1[1], fill = "white")
+            draw.line(re_orient([rectangle1[2]+1, rectangle1[1], rectangle1[2]+30, rectangle1[1]]), fill = "white")
             return [rectangle1[2]+1, rectangle1[1], rectangle1[2]+30, rectangle1[1]]
         
     else:#right
         if rectangle1[3] > rectangle2[3] or rectangle1[3] > rectangle2[1]:    
             canvas.create_line(rectangle1[2]-1, rectangle1[1], rectangle1[2]-30, rectangle1[1], fill = "white")
+            draw.line(re_orient([rectangle1[2]-1, rectangle1[1], rectangle1[2]-30, rectangle1[1]]), fill = "white")
             return [rectangle1[2]-1, rectangle1[1], rectangle1[2]-30, rectangle1[1]]
             
         else: 
             canvas.create_line(rectangle1[2]-1, rectangle1[3], rectangle1[2]-30, rectangle1[3], fill = "white")
+            draw.line(re_orient([rectangle1[2]-1, rectangle1[3], rectangle1[2]-30, rectangle1[3]]), fill = "white")
             return [rectangle1[2]-1, rectangle1[3], rectangle1[2]-30, rectangle1[3]]
        
        
@@ -350,10 +365,7 @@ def reset(event):
     global item
     t = 30#time
     
-    width= root.winfo_screenwidth()               
-    height= root.winfo_screenheight()
-    image1 = Image.new("RGB", (width, height), "white")
-    draw = ImageDraw.Draw(image1)
+    
 
     
     canvas.delete("all")
